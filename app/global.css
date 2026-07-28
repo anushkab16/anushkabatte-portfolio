@@ -1,8 +1,29 @@
 @import 'tailwindcss';
 
+:root {
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@theme {
+  --color-bg: #e8d9c1;
+  --color-burgundy: #4b1d3f;
+  --color-rose: #d8a7b1;
+  --color-text: #1b1b1b;
+  --color-muted: #8a7060;
+  --color-surface: #dfd0b8;
+  --color-border: #c9b99a;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
 ::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
+  background-color: #4b1d3f;
+  color: #e8d9c1;
 }
 
 :root {
@@ -17,20 +38,9 @@
   --sh-entity: #e25a1c;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
-  }
-  html {
-    color-scheme: dark;
-  }
-}
-
 html {
   min-width: 360px;
+  scroll-behavior: smooth;
 }
 
 .prose .anchor {
@@ -48,11 +58,12 @@ html {
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  @apply underline transition-all decoration-[#c9b99a] underline-offset-2 decoration-[0.1em];
+  color: #4b1d3f;
 }
 
 .prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+  color: #c9b99a;
   content: '#';
 }
 
@@ -61,7 +72,9 @@ html {
 }
 
 .prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+  @apply rounded-lg overflow-x-auto border py-2 px-3 text-sm;
+  background: #dfd0b8;
+  border-color: #c9b99a;
 }
 
 .prose code {
@@ -84,23 +97,28 @@ html {
 }
 
 .prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+  @apply my-4;
+  color: #1b1b1b;
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-4xl font-semibold tracking-tight mt-6 mb-2;
+  font-family: var(--font-display);
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-semibold tracking-tight mt-6 mb-2;
+  font-family: var(--font-display);
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-semibold tracking-tight mt-6 mb-2;
+  font-family: var(--font-display);
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
+  @apply text-lg font-semibold tracking-tight mt-6 mb-2;
+  font-family: var(--font-display);
 }
 
 .prose strong {
@@ -147,4 +165,35 @@ table {
 
 .title {
   text-wrap: balance;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+/*
+ * This site commits to a single warm theme — no dark mode.
+ * A couple of untouched blog components still carry Tailwind `dark:`
+ * classes tied to prefers-color-scheme; on an OS set to dark they'd
+ * render near-white text on the cream background. Pin them back to
+ * the light values here instead of editing the blog files.
+ */
+@media (prefers-color-scheme: dark) {
+  .dark\:text-neutral-100 {
+    color: #1b1b1b;
+  }
+  .dark\:text-neutral-400 {
+    color: #8a7060;
+  }
 }
