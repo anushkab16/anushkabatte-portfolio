@@ -3,7 +3,7 @@
 :root {
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'Inter', sans-serif;
-  --grid-line: rgba(232, 217, 193, 0.04);
+  --grid-line: rgba(232, 217, 193, 0.03);
 }
 
 @theme {
@@ -14,6 +14,13 @@
   --color-rose: #d8a7b1;
   --color-surface: #2a1820;
   --color-border: rgba(232, 217, 193, 0.08);
+  --color-card-border: rgba(75, 29, 63, 0.4);
+
+  --color-pink-surface: #2d1a1f;
+  --color-blue-surface: #141a2d;
+  --color-yellow-surface: #2a2410;
+  --color-green-surface: #142318;
+  --color-purple-surface: #1e1428;
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
@@ -47,7 +54,7 @@ html {
 .bg-grid {
   background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 80px 80px;
+  background-size: 60px 60px;
 }
 
 .prose .anchor {

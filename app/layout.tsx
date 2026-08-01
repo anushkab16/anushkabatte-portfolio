@@ -2,7 +2,6 @@ import './global.css'
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Navbar } from './components/Navbar'
 import { baseUrl } from './sitemap'
 
 export const metadata: Metadata = {
@@ -49,11 +48,10 @@ export default function RootLayout({
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,700;1,900&family=Inter:wght@300;400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;0,900;1,700&family=Inter:wght@300;400;500&display=swap"
         />
       </head>
       <body className="bg-grid bg-bg text-text font-sans antialiased">
-        <Navbar />
         <main>{children}</main>
         <Analytics />
         <SpeedInsights />

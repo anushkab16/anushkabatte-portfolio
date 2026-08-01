@@ -1,121 +1,330 @@
-import Image from 'next/image'
+'use client'
 
-const SOCIAL_LINKS = [
-  { label: 'GitHub', href: 'https://github.com/anushkab16' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/anushkabatte/' },
-  { label: 'Instagram', href: 'https://www.instagram.com/nushki.exe/' },
-  { label: 'Medium', href: 'https://medium.com/@anushkabatte.work' },
-  { label: 'Email', href: 'mailto:anushkabatte.work@gmail.com' },
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import DotGrid from './DotGrid'
+
+function scrollToSection(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
+function NotesIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M4 4h16v16H4z" strokeLinejoin="round" />
+      <path d="M8 9h8M8 13h8M8 17h4" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function FolderIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M4 6h5l2 2h9v11H4z" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function FlaskIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M10 3h4M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function MailIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M4 6h16v12H4z" strokeLinejoin="round" />
+      <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function BrainIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8 3 3 0 0 0 3.2 4.7A3 3 0 0 0 9 20a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8 3 3 0 0 1-3.2 4.7A3 3 0 0 1 15 20a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ChatIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M4 5h16v11H8l-4 4z" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function PencilIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="m4 20 1-4L16 5l3 3L8 19z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+const SKILL_TAGS = [
+  {
+    label: 'AI/ML Research',
+    icon: <BrainIcon />,
+    style: { top: '-16px', left: 'calc(50% + 90px)', rotate: -6 },
+  },
+  {
+    label: 'Tech Comm',
+    icon: <ChatIcon />,
+    style: { top: '48%', left: 'calc(50% - 420px)', rotate: 4 },
+  },
+  {
+    label: 'Content',
+    icon: <PencilIcon />,
+    style: { bottom: '-16px', left: 'calc(50% + 60px)', rotate: 3 },
+  },
 ]
 
-const hairline = { borderBottom: '0.5px solid rgba(232,217,193,0.35)' }
+const DOCK_ITEMS = [
+  { label: 'About', icon: <NotesIcon />, onClick: () => scrollToSection('about') },
+  { label: 'Projects', icon: <FolderIcon />, onClick: () => scrollToSection('projects') },
+  { label: 'Research', icon: <FlaskIcon />, onClick: () => scrollToSection('research') },
+  { label: 'Contact', icon: <MailIcon />, onClick: () => scrollToSection('contact') },
+]
+
+const FEATURED_PROJECTS = [
+  { name: 'Agentic AI System', meta: 'Python · LangChain · 2026' },
+  { name: 'Adversarial ML on FHE', meta: 'Python · TenSEAL · 2026' },
+  { name: 'Wildfire Monitor', meta: 'Python · scikit-learn · 2026' },
+  { name: 'TEMPUS App', meta: 'Java · YOLOv8 · 2025' },
+]
 
 /**
- * Above-the-fold hero: eyebrow, name, taglines, status pill, socials,
- * and a polaroid photo.
+ * Full-viewport hero. Every piece (availability card, headline+tags,
+ * tagline, dock, featured-project stack) is absolutely positioned
+ * against the section so hover-expanding cards never push the
+ * centered headline around.
+ *
+ * hero-bg.jpg doesn't exist in /public yet — using a dark gradient
+ * placeholder in its place. Drop a real photo in and swap the
+ * background style below.
  */
 export function Hero() {
+  const [cardOpen, setCardOpen] = useState(false)
+  const [projectsOpen, setProjectsOpen] = useState(false)
+
   return (
-    <section className="mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-center px-4 py-10 md:px-8 md:py-16">
-      <div className="grid gap-12 md:grid-cols-2 md:items-center">
-        <div className="animate-fade-in-up">
-          <p className="font-display text-[22px] italic font-bold text-text">
-            hi, i&apos;m
-          </p>
-          <h1
-            className="font-display mt-7 text-[clamp(84px,13vw,150px)] font-black text-text"
-            style={{ lineHeight: 0.58 }}
-          >
-            Anushka
-            <br />
-            Batte
-            <span className="text-[1.5em] text-rose">.</span>
+    <section
+      id="home"
+      className="relative min-h-screen overflow-hidden"
+      style={{
+        backgroundImage:
+          'linear-gradient(rgba(26,15,20,0.55), rgba(26,15,20,0.55)), radial-gradient(circle at 25% 15%, rgba(75,29,63,0.4), transparent 55%), linear-gradient(160deg, #2a1820, #1a0f14 65%)',
+      }}
+    >
+      {/* interactive dot grid background */}
+      <div className="absolute inset-0 z-0">
+        <DotGrid
+          dotSize={3}
+          gap={26}
+          baseColor="#3a2530"
+          activeColor="#d8a7b1"
+          proximity={120}
+          shockRadius={200}
+          shockStrength={3}
+          resistance={750}
+          returnDuration={1.2}
+        />
+      </div>
+
+      {/* availability card */}
+      <div className="absolute left-6 top-8 z-20 md:left-10">
+        <motion.div
+          layout
+          onHoverStart={() => setCardOpen(true)}
+          onHoverEnd={() => setCardOpen(false)}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className="cursor-pointer overflow-hidden rounded-2xl border p-3"
+          style={{
+            background: 'rgba(26,15,20,0.85)',
+            borderColor: 'rgba(232,217,193,0.1)',
+            backdropFilter: 'blur(12px)',
+          }}
+        >
+          <motion.div layout="position" className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface text-[11px] text-text">
+              AB
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 text-[11px] text-muted">
+                <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-rose" />
+                Available for work
+              </div>
+              <div className="text-[11px] font-semibold tracking-wide text-text">
+                ANUSHKA BATTE
+              </div>
+            </div>
+          </motion.div>
+
+          <AnimatePresence>
+            {cardOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="w-[280px]"
+              >
+                <div className="mt-3 text-[11px] font-medium text-rose">
+                  Available for DevRel &amp; Marketing roles
+                </div>
+                <p className="mt-2 text-[12px] font-light leading-relaxed text-muted">
+                  I research AI systems, create content that actually gets
+                  watched, and work at the intersection of tech and human
+                  psychology.
+                </p>
+                <div className="mt-3 text-[11px] font-light text-muted">
+                  AI/ML Research &middot; DevRel &middot; Content &middot;
+                  Digital Marketing
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+
+      {/* headline + floating tags — pinned dead-center, independent of everything else */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-6">
+        <div className="relative mx-auto w-fit max-w-3xl">
+          <h1 className="font-display text-center text-[clamp(30px,5vw,72px)] font-black uppercase leading-[1.05] text-text">
+            Building at the intersection of AI and everything else
           </h1>
 
-          <div
-            className="my-4 h-0 w-[72px]"
-            style={{ borderTop: '0.5px solid #4B1D3F' }}
-          />
-
-          <p className="text-[16px] font-medium text-text">
-            CS Student. AI/ML researcher. Future Developer Advocate.
-          </p>
-          <p className="mt-1 max-w-lg text-[16px] font-medium text-muted">
-            I play around with tech, content, design, and everything in
-            between.
-          </p>
-
-          <div className="mt-6">
-            <span
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] text-rose"
+          {SKILL_TAGS.map((tag) => (
+            <motion.div
+              key={tag.label}
+              drag
+              dragMomentum={false}
+              dragElastic={0.15}
+              whileDrag={{ scale: 1.05 }}
+              initial={{ rotate: tag.style.rotate }}
+              className="absolute z-10 hidden cursor-grab items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 text-[12px] font-medium text-text active:cursor-grabbing md:flex"
               style={{
-                background: 'rgba(75,29,63,0.25)',
-                border: '0.5px solid rgba(75,29,63,0.6)',
+                top: tag.style.top,
+                left: tag.style.left,
+                bottom: 'bottom' in tag.style ? tag.style.bottom : undefined,
+                background: 'rgba(42,24,32,0.94)',
+                borderColor: 'rgba(232,217,193,0.16)',
+                backdropFilter: 'blur(6px)',
               }}
             >
-              <span className="h-[7px] w-[7px] animate-pulse-dot rounded-full bg-rose" />
-              available for DevRel roles
-            </span>
-          </div>
-
-          <ul className="mt-8 flex flex-wrap gap-[24px]">
-            {SOCIAL_LINKS.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={
-                    link.href.startsWith('http')
-                      ? 'noopener noreferrer'
-                      : undefined
-                  }
-                  style={hairline}
-                  className="text-[14px] text-muted transition-colors hover:text-text"
-                >
-                  {link.label} ↗
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="animate-fade-in-up flex justify-center md:justify-end">
-          <div
-            className="relative flex aspect-[120/152] w-[260px] flex-col bg-surface shadow-sm sm:w-[320px] md:w-[380px]"
-            style={{
-              transform: 'rotate(1.5deg) translateZ(0)',
-              backfaceVisibility: 'hidden',
-              border: '2px solid #FFFFFF',
-            }}
-          >
-            <svg
-              viewBox="0 0 28 28"
-              fill="none"
-              stroke="#E8D9C1"
-              strokeWidth={1.5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="absolute -top-5 left-8 z-10 h-10 w-10 -rotate-[24deg] drop-shadow-[0_3px_4px_rgba(0,0,0,0.55)] sm:-top-6 sm:left-10 sm:h-12 sm:w-12 md:-top-8 md:left-14 md:h-16 md:w-16"
-            >
-              <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-            </svg>
-            <div className="relative flex-1 overflow-hidden">
-              <Image
-                src="/polaroid.jpg"
-                alt="nush in her element"
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 380px, (min-width: 640px) 320px, 260px"
-                quality={95}
-                priority
-              />
-            </div>
-            <div className="bg-burgundy px-3 py-2.5 text-center text-[13px] tracking-[0.06em] text-text">
-              nush in her element
-            </div>
-          </div>
+              {tag.icon}
+              {tag.label}
+            </motion.div>
+          ))}
         </div>
       </div>
+
+      {/* tagline */}
+      <p className="absolute bottom-8 left-6 z-10 whitespace-nowrap text-[11px] font-light text-muted md:left-10 md:text-[13px]">
+        CS student &middot; AI/ML enthusiast &middot; Content creator
+      </p>
+
+      {/* dock */}
+      <div
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-4 rounded-full px-5 py-3"
+        style={{
+          background: 'rgba(232,217,193,0.08)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(232,217,193,0.12)',
+        }}
+      >
+        {DOCK_ITEMS.map((item) => (
+          <div key={item.label} className="group relative">
+            <motion.button
+              type="button"
+              aria-label={item.label}
+              onClick={item.onClick}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.95 }}
+              className="text-text"
+            >
+              {item.icon}
+            </motion.button>
+            <span
+              className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-1 text-[10px] text-text opacity-0 transition-opacity group-hover:opacity-100"
+              style={{
+                background: 'rgba(26,15,20,0.95)',
+                border: '1px solid rgba(232,217,193,0.12)',
+              }}
+            >
+              {item.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* featured project stack */}
+      <motion.div
+        layout
+        onHoverStart={() => setProjectsOpen(true)}
+        onHoverEnd={() => setProjectsOpen(false)}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className="absolute bottom-8 right-6 z-10 hidden w-[240px] md:right-10 md:block"
+      >
+        <div
+          className="absolute inset-x-2 -top-2 h-full rounded-2xl border"
+          style={{ background: 'rgba(26,15,20,0.5)', borderColor: 'rgba(232,217,193,0.06)' }}
+        />
+        <div
+          className="absolute inset-x-1 -top-1 h-full rounded-2xl border"
+          style={{ background: 'rgba(26,15,20,0.65)', borderColor: 'rgba(232,217,193,0.08)' }}
+        />
+
+        <div
+          className="relative overflow-hidden rounded-2xl border p-4"
+          style={{
+            background: 'rgba(26,15,20,0.85)',
+            borderColor: 'rgba(232,217,193,0.1)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          {!projectsOpen ? (
+            <a href="#projects" className="block">
+              <div className="flex items-center justify-between text-[10px] tracking-[0.08em] text-muted">
+                <span>PYTHON &middot; LANGCHAIN</span>
+                <span>2026</span>
+              </div>
+              <div className="font-display mt-1 text-[18px] font-bold text-text">
+                Agentic AI System
+              </div>
+              <div className="mt-2 flex items-center gap-1 text-[12px] text-rose">
+                VIEW PROJECT <span aria-hidden>&rarr;</span>
+              </div>
+            </a>
+          ) : (
+            <div>
+              <div className="mb-2 text-[10px] tracking-[0.08em] text-muted">
+                ALL PROJECTS
+              </div>
+              <div className="flex flex-col gap-1">
+                {FEATURED_PROJECTS.map((project) => (
+                  <a
+                    key={project.name}
+                    href="#projects"
+                    className="rounded-lg px-2 py-1.5 transition-colors hover:bg-white/5"
+                  >
+                    <div className="font-display text-[13px] font-semibold text-text">
+                      {project.name}
+                    </div>
+                    <div className="text-[10px] text-muted">{project.meta}</div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </motion.div>
     </section>
   )
 }
