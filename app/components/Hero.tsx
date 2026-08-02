@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import DotGrid from './DotGrid'
 
@@ -93,10 +94,26 @@ const DOCK_ITEMS = [
 ]
 
 const FEATURED_PROJECTS = [
-  { name: 'Agentic AI System', meta: 'Python · LangChain · 2026' },
-  { name: 'Adversarial ML on FHE', meta: 'Python · TenSEAL · 2026' },
-  { name: 'Wildfire Monitor', meta: 'Python · scikit-learn · 2026' },
-  { name: 'TEMPUS App', meta: 'Java · YOLOv8 · 2025' },
+  {
+    name: 'Agentic AI System',
+    meta: 'Python · LangChain · 2026',
+    url: 'https://github.com/anushkab16/B076_CC_AgenticAI',
+  },
+  {
+    name: 'Adversarial ML on FHE',
+    meta: 'Python · TenSEAL · 2026',
+    url: 'https://github.com/anushkab16/ML-Against-Homomorphic-Encryption',
+  },
+  {
+    name: 'Wildfire Monitor',
+    meta: 'Python · scikit-learn · 2026',
+    url: 'https://github.com/anushkab16/wildfire-ctrd',
+  },
+  {
+    name: 'TEMPUS App',
+    meta: 'Java · YOLOv8 · 2025',
+    url: 'https://github.com/anushkab16/TempusProject',
+  },
 ]
 
 /**
@@ -134,6 +151,18 @@ export function Hero() {
           shockStrength={3}
           resistance={750}
           returnDuration={1.2}
+        />
+      </div>
+
+      {/* portrait — flush against the bottom-left edge, popping out of frame */}
+      <div className="absolute bottom-0 left-0 z-10 h-[240px] w-[192px] sm:h-[320px] sm:w-[256px] md:h-[420px] md:w-[336px] lg:h-[520px] lg:w-[416px]">
+        <Image
+          src="/hero-image-v2.png"
+          alt="Anushka Batte"
+          fill
+          priority
+          className="object-contain object-bottom drop-shadow-2xl"
+          sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, (max-width: 1024px) 336px, 416px"
         />
       </div>
 
@@ -226,8 +255,15 @@ export function Hero() {
       </div>
 
       {/* tagline */}
-      <p className="absolute bottom-8 left-6 z-10 whitespace-nowrap text-[11px] font-light text-muted md:left-10 md:text-[13px]">
-        CS student &middot; AI/ML enthusiast &middot; Content creator
+      <p
+        className="font-display absolute right-6 top-8 z-10 text-right text-[18px] font-bold leading-relaxed md:right-10"
+        style={{ color: 'rgba(232,217,193,0.7)' }}
+      >
+        CS student.
+        <br />
+        AI/ML enthusiast.
+        <br />
+        Content creator.
       </p>
 
       {/* dock */}
@@ -270,7 +306,7 @@ export function Hero() {
         onHoverStart={() => setProjectsOpen(true)}
         onHoverEnd={() => setProjectsOpen(false)}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="absolute bottom-8 right-6 z-10 hidden w-[240px] md:right-10 md:block"
+        className="absolute bottom-8 right-6 z-10 hidden w-[280px] md:right-10 md:block"
       >
         <div
           className="absolute inset-x-2 -top-2 h-full rounded-2xl border"
@@ -290,7 +326,12 @@ export function Hero() {
           }}
         >
           {!projectsOpen ? (
-            <a href="#projects" className="block">
+            <a
+              href={FEATURED_PROJECTS[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
               <div className="flex items-center justify-between text-[10px] tracking-[0.08em] text-muted">
                 <span>PYTHON &middot; LANGCHAIN</span>
                 <span>2026</span>
@@ -304,20 +345,22 @@ export function Hero() {
             </a>
           ) : (
             <div>
-              <div className="mb-2 text-[10px] tracking-[0.08em] text-muted">
+              <div className="mb-3 text-[10px] tracking-[0.08em] text-muted">
                 ALL PROJECTS
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-3">
                 {FEATURED_PROJECTS.map((project) => (
                   <a
                     key={project.name}
-                    href="#projects"
-                    className="rounded-lg px-2 py-1.5 transition-colors hover:bg-white/5"
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block rounded-lg px-2 py-1.5 transition-colors hover:bg-white/5"
                   >
-                    <div className="font-display text-[13px] font-semibold text-text">
+                    <div className="font-display text-[18px] font-bold text-text">
                       {project.name}
                     </div>
-                    <div className="text-[10px] text-muted">{project.meta}</div>
+                    <div className="mt-1 text-[12px] text-muted">{project.meta}</div>
                   </a>
                 ))}
               </div>
@@ -325,6 +368,12 @@ export function Hero() {
           )}
         </div>
       </motion.div>
+
+      {/* divider marking the transition into the next section */}
+      <div
+        className="absolute inset-x-0 bottom-0 z-20 h-px"
+        style={{ background: 'rgba(232,217,193,0.4)' }}
+      />
     </section>
   )
 }
