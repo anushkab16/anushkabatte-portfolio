@@ -95,7 +95,7 @@ export function About() {
         </p>
 
         <a
-          href="https://drive.google.com/file/d/1zmwY_HdyC7JDbSRdq0-ket5yCmmoX6mt/view?usp=sharing"
+          href="https://anushkabatte-portfolio.vercel.app/cv.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-8 rounded-full bg-burgundy px-6 py-3 text-[14px] font-medium text-text transition-colors hover:bg-rose hover:text-bg"
