@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import DotGrid from './DotGrid'
+import { PROJECTS, ProjectModal } from './projectsData'
 
 function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -93,29 +94,6 @@ const DOCK_ITEMS = [
   { label: 'Contact', icon: <MailIcon />, onClick: () => scrollToSection('contact') },
 ]
 
-const FEATURED_PROJECTS = [
-  {
-    name: 'Agentic AI System',
-    meta: 'Python · LangChain · 2026',
-    url: 'https://github.com/anushkab16/B076_CC_AgenticAI',
-  },
-  {
-    name: 'Adversarial ML on FHE',
-    meta: 'Python · TenSEAL · 2026',
-    url: 'https://github.com/anushkab16/ML-Against-Homomorphic-Encryption',
-  },
-  {
-    name: 'Wildfire Monitor',
-    meta: 'Python · scikit-learn · 2026',
-    url: 'https://github.com/anushkab16/wildfire-ctrd',
-  },
-  {
-    name: 'TEMPUS App',
-    meta: 'Java · YOLOv8 · 2025',
-    url: 'https://github.com/anushkab16/TempusProject',
-  },
-]
-
 /**
  * Full-viewport hero. Every piece (availability card, headline+tags,
  * tagline, dock, featured-project stack) is absolutely positioned
@@ -129,11 +107,13 @@ const FEATURED_PROJECTS = [
 export function Hero() {
   const [cardOpen, setCardOpen] = useState(false)
   const [projectsOpen, setProjectsOpen] = useState(false)
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null)
+  const activeProject = PROJECTS.find((p) => p.id === activeProjectId) ?? null
 
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-screen overflow-hidden pb-[120px]"
       style={{
         backgroundImage:
           'linear-gradient(rgba(26,15,20,0.55), rgba(26,15,20,0.55)), radial-gradient(circle at 25% 15%, rgba(75,29,63,0.4), transparent 55%), linear-gradient(160deg, #2a1820, #1a0f14 65%)',
@@ -256,7 +236,7 @@ export function Hero() {
 
       {/* tagline */}
       <p
-        className="font-display absolute right-6 top-8 z-10 text-right text-[18px] font-bold leading-relaxed md:right-10"
+        className="absolute right-6 top-8 z-10 text-right text-[18px] font-bold leading-relaxed md:right-10"
         style={{ color: 'rgba(232,217,193,0.7)' }}
       >
         CS student.
@@ -327,7 +307,7 @@ export function Hero() {
         >
           {!projectsOpen ? (
             <a
-              href={FEATURED_PROJECTS[0].url}
+              href={PROJECTS[0].githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="block"
@@ -336,7 +316,7 @@ export function Hero() {
                 <span>PYTHON &middot; LANGCHAIN</span>
                 <span>2026</span>
               </div>
-              <div className="font-display mt-1 text-[18px] font-bold text-text">
+              <div className="mt-1 text-[18px] font-bold text-text">
                 Agentic AI System
               </div>
               <div className="mt-2 flex items-center gap-1 text-[12px] text-rose">
@@ -349,19 +329,18 @@ export function Hero() {
                 ALL PROJECTS
               </div>
               <div className="flex flex-col gap-3">
-                {FEATURED_PROJECTS.map((project) => (
-                  <a
-                    key={project.name}
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block rounded-lg px-2 py-1.5 transition-colors hover:bg-white/5"
+                {PROJECTS.map((project) => (
+                  <button
+                    key={project.id}
+                    type="button"
+                    onClick={() => setActiveProjectId(project.id)}
+                    className="block w-full rounded-lg px-2 py-1.5 text-left transition-colors hover:bg-white/5"
                   >
-                    <div className="font-display text-[18px] font-bold text-text">
+                    <div className="text-[18px] font-bold text-text">
                       {project.name}
                     </div>
                     <div className="mt-1 text-[12px] text-muted">{project.meta}</div>
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -369,11 +348,11 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* divider marking the transition into the next section */}
-      <div
-        className="absolute inset-x-0 bottom-0 z-20 h-px"
-        style={{ background: 'rgba(232,217,193,0.4)' }}
-      />
+      <AnimatePresence>
+        {activeProject && (
+          <ProjectModal project={activeProject} onClose={() => setActiveProjectId(null)} />
+        )}
+      </AnimatePresence>
     </section>
   )
 }

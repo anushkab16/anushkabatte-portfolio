@@ -21,28 +21,24 @@ const STATS = [
     label: 'Published Papers',
     description: 'Peer-reviewed ML research in Wiley and Cortexplore journals.',
     rotate: -6,
-    y: 10,
   },
   {
     number: '4+',
     label: 'Projects Built',
     description: 'From agentic AI systems to Android apps with computer vision.',
     rotate: 3,
-    y: 4,
   },
   {
     number: '3',
     label: 'Years in Tech Communities',
     description: 'ACM and Taqneeq Fest — leading teams, producing content, building things.',
     rotate: -3,
-    y: -28,
   },
   {
     number: '1',
     label: 'Internship',
     description: 'Data Science at Acuradyne, incubated at SINE IIT Bombay.',
     rotate: 4,
-    y: 10,
   },
 ]
 
@@ -64,7 +60,7 @@ export function About() {
   const isDesktop = useIsDesktop()
 
   return (
-    <section id="about" className="relative overflow-hidden px-6 py-28">
+    <section id="about" className="relative px-6 pb-[80px] pt-28">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         {/* section label tag */}
         <div
@@ -104,35 +100,30 @@ export function About() {
         </a>
       </div>
 
-      {/* fanned, overlapping stat cards (desktop) / clean stack (mobile & tablet) */}
-      <div className="mx-auto mt-24 flex max-w-5xl flex-col items-center gap-6 lg:flex-row lg:flex-nowrap lg:justify-center lg:gap-0">
-        {STATS.map((stat, i) => (
+      {/* stat cards — flex row on desktop, stacked on mobile & tablet */}
+      <div className="mx-auto mt-20 flex max-w-5xl flex-col items-center gap-6 lg:flex-row lg:flex-nowrap lg:justify-center">
+        {STATS.map((stat) => (
           <motion.div
             key={stat.label}
-            animate={{
-              rotate: isDesktop ? stat.rotate : 0,
-              y: isDesktop ? stat.y : 0,
-            }}
-            whileHover={isDesktop ? { rotate: 0, y: stat.y - 10 } : undefined}
+            animate={{ rotate: isDesktop ? stat.rotate : 0 }}
+            whileHover={isDesktop ? { rotate: 0, scale: 1.04, y: -6 } : undefined}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            className={`relative z-0 w-full max-w-[300px] shrink-0 overflow-hidden rounded-2xl border bg-surface p-7 hover:z-20 lg:w-80 ${
-              i > 0 && isDesktop ? '-ml-12' : ''
-            }`}
+            className="relative z-0 flex w-full max-w-[260px] shrink-0 flex-col justify-center overflow-hidden rounded-2xl border bg-surface p-5 hover:z-10 lg:w-[260px] lg:h-[244px]"
             style={{ borderColor: 'rgba(232,217,193,0.08)' }}
           >
             <div
               className="absolute right-0 top-0 h-0 w-0"
               style={{
                 borderStyle: 'solid',
-                borderWidth: '0 32px 32px 0',
+                borderWidth: '0 28px 28px 0',
                 borderColor: 'transparent #4b1d3f transparent transparent',
               }}
             />
-            <div className="font-display text-[48px] font-black leading-none text-text">
+            <div className="font-display text-[40px] font-black leading-none text-text">
               {stat.number}
             </div>
             <div className="mt-3 text-[15px] font-medium text-text">{stat.label}</div>
-            <p className="mt-2 text-[14px] font-light leading-relaxed text-muted">
+            <p className="mt-2 line-clamp-3 text-[13px] font-light leading-relaxed text-muted">
               {stat.description}
             </p>
           </motion.div>
