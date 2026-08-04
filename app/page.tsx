@@ -3,6 +3,8 @@ import { About } from './components/About'
 import { Projects } from './components/Projects'
 import { Skills } from './components/Skills'
 import { Research } from './components/Research'
+import { FAQ } from './components/FAQ'
+import { Footer } from './components/Footer'
 
 export default function Page() {
   return (
@@ -12,6 +14,8 @@ export default function Page() {
       <Projects />
       <Skills />
       <Research />
+      <FAQ />
+      <Footer />
     </>
   )
 }

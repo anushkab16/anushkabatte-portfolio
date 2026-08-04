@@ -23,59 +23,33 @@ function PaperclipIcon() {
   )
 }
 
-const SKILLS = [
+const FAQS = [
   {
-    label: 'Machine Learning & AI',
+    q: 'What do you actually do?',
+    a: "I'm a CS student who does AI/ML research, builds projects, creates content, and is working toward a career in Developer Relations. I exist at the intersection of tech and communication.",
     surface: 'linear-gradient(160deg, #46252f, #3d1f28)',
-    tools: [
-      'Python',
-      'PyTorch',
-      'scikit-learn',
-      'LangChain',
-      'LangGraph',
-      'RAG',
-      'Computer Vision',
-    ],
   },
   {
-    label: 'Data Science',
-    surface: 'linear-gradient(160deg, #212a4a, #1a2240)',
-    tools: ['Pandas', 'NumPy', 'Matplotlib', 'EDA', 'Time-Series', 'FastAPI', 'Jupyter'],
-  },
-  {
-    label: 'Research & Writing',
-    surface: 'linear-gradient(160deg, #3f3710, #352e0a)',
-    tools: [
-      '2 Published Papers',
-      'Wiley',
-      'Cortexplore',
-      'Technical Writing',
-      'Literature Review',
-    ],
-  },
-  {
-    label: 'Content & Community',
+    q: 'You have research papers?',
+    a: 'Yep. Two peer-reviewed ones — one in a Wiley journal on using ML for schizophrenia detection, and one on how AI automation affects the human brain. Published before graduating.',
     surface: 'linear-gradient(160deg, #20392c, #1a3024)',
-    tools: ['Instagram Reels', 'ACM', 'Taqneeq Fest', 'Social Media', 'Team Leadership'],
   },
   {
-    label: 'Building & Shipping',
-    surface: 'linear-gradient(160deg, #302044, #281838)',
-    tools: ['Next.js', 'Android', 'Firebase', 'Framer', 'Git', 'Vercel', 'REST APIs'],
+    q: 'What kind of roles are you looking for?',
+    a: 'Developer Relations, technical content, marketing at a tech company. Anything where explaining things well is the job.',
+    surface: 'linear-gradient(160deg, #212a4a, #1a2240)',
+  },
+  {
+    q: 'Are you open to opportunities?',
+    a: 'Yes. Internships, collabs, research projects, content work, or just an interesting conversation.',
+    email: 'anushkabatte.work@gmail.com',
+    surface: 'linear-gradient(160deg, #3f3710, #352e0a)',
   },
 ]
 
-type Skill = (typeof SKILLS)[number]
+type Faq = (typeof FAQS)[number]
 
-function SkillRow({
-  skill,
-  isOpen,
-  onToggle,
-}: {
-  skill: Skill
-  isOpen: boolean
-  onToggle: () => void
-}) {
+function FaqCard({ faq, isOpen, onToggle }: { faq: Faq; isOpen: boolean; onToggle: () => void }) {
   const contentRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
@@ -85,18 +59,18 @@ function SkillRow({
   }, [isOpen])
 
   return (
-    <div className="overflow-hidden rounded-xl" style={{ background: skill.surface }}>
+    <div className="overflow-hidden rounded-2xl" style={{ background: faq.surface }}>
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between text-left"
+        className="flex w-full items-center justify-between gap-4 text-left"
         style={{ padding: '20px 28px' }}
       >
-        <span className="text-[18px] font-medium text-text">{skill.label}</span>
+        <span className="text-[18px] font-medium text-text">{faq.q}</span>
         <motion.span
           animate={{ rotate: isOpen ? 45 : 0 }}
           transition={{ duration: 0.2 }}
-          className="ml-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
           style={{ background: 'rgba(232,217,193,0.1)' }}
         >
           <PlusIcon />
@@ -107,34 +81,31 @@ function SkillRow({
         ref={contentRef}
         style={{ maxHeight: '0px', overflow: 'hidden', transition: 'max-height 0.25s ease-in-out' }}
       >
-        <div className="flex flex-wrap gap-2" style={{ padding: '0 28px 24px' }}>
-          {skill.tools.map((tool) => (
-            <span
-              key={tool}
-              style={{
-                background: 'rgba(232,217,193,0.1)',
-                border: '0.5px solid rgba(232,217,193,0.2)',
-                borderRadius: '100px',
-                padding: '4px 14px',
-                fontFamily: 'var(--font-body)',
-                fontSize: '12px',
-                color: '#E8D9C1',
-              }}
-            >
-              {tool}
-            </span>
-          ))}
-        </div>
+        <p
+          className="text-[13px] font-light leading-relaxed text-muted"
+          style={{ padding: '0 28px 24px' }}
+        >
+          {faq.a}
+          {faq.email && (
+            <>
+              {' '}
+              Reach me at{' '}
+              <a href={`mailto:${faq.email}`} className="text-rose hover:underline">
+                {faq.email}
+              </a>
+            </>
+          )}
+        </p>
       </div>
     </div>
   )
 }
 
-export function Skills() {
+export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="skills" className="relative px-6 pb-24 pt-24">
+    <section id="faq" className="relative px-6 pb-24 pt-24">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         <div
           className="mb-8 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-medium text-text"
@@ -145,28 +116,26 @@ export function Skills() {
           }}
         >
           <PaperclipIcon />
-          Skills
+          FAQs
         </div>
 
         <h2 className="font-display text-[clamp(30px,5vw,72px)] font-black uppercase leading-[1.05] text-text">
-          Tools of the trade
+          Let&rsquo;s get into it
         </h2>
 
         <p
           className="mt-6 max-w-[560px] text-[16px] font-light leading-relaxed"
           style={{ color: 'rgba(232,217,193,0.7)' }}
         >
-          Picked up along the way.
-          <br />
-          Still adding more.
+          The stuff people actually want to know before reaching out.
         </p>
       </div>
 
       <div className="mx-auto mt-16 flex max-w-3xl flex-col gap-4">
-        {SKILLS.map((skill, i) => (
-          <SkillRow
-            key={skill.label}
-            skill={skill}
+        {FAQS.map((faq, i) => (
+          <FaqCard
+            key={faq.q}
+            faq={faq}
             isOpen={openIndex === i}
             onToggle={() => setOpenIndex(openIndex === i ? null : i)}
           />

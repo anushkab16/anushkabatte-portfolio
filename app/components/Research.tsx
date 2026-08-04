@@ -57,7 +57,7 @@ export function Research() {
   const isDesktop = useIsDesktop()
 
   return (
-    <section id="research" className="relative overflow-hidden px-6 pb-[120px] pt-28">
+    <section id="research" className="relative overflow-hidden px-6 pb-24 pt-24">
       {DOTS.map((dot, i) => (
         <span
           key={i}

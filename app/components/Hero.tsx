@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import DotGrid from './DotGrid'
 import { PROJECTS, ProjectModal } from './projectsData'
+import { ContactModal } from './ContactModal'
 
 function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -12,7 +13,7 @@ function scrollToSection(id: string) {
 
 function NotesIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M4 4h16v16H4z" strokeLinejoin="round" />
       <path d="M8 9h8M8 13h8M8 17h4" strokeLinecap="round" />
     </svg>
@@ -21,7 +22,7 @@ function NotesIcon() {
 
 function FolderIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M4 6h5l2 2h9v11H4z" strokeLinejoin="round" />
     </svg>
   )
@@ -29,7 +30,7 @@ function FolderIcon() {
 
 function FlaskIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M10 3h4M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
@@ -37,7 +38,7 @@ function FlaskIcon() {
 
 function MailIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M4 6h16v12H4z" strokeLinejoin="round" />
       <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -88,10 +89,10 @@ const SKILL_TAGS = [
 ]
 
 const DOCK_ITEMS = [
-  { label: 'About', icon: <NotesIcon />, onClick: () => scrollToSection('about') },
-  { label: 'Projects', icon: <FolderIcon />, onClick: () => scrollToSection('projects') },
-  { label: 'Research', icon: <FlaskIcon />, onClick: () => scrollToSection('research') },
-  { label: 'Contact', icon: <MailIcon />, onClick: () => scrollToSection('contact') },
+  { id: 'about', label: 'About', icon: <NotesIcon /> },
+  { id: 'projects', label: 'Projects', icon: <FolderIcon /> },
+  { id: 'research', label: 'Research', icon: <FlaskIcon /> },
+  { id: 'contact', label: 'Contact', icon: <MailIcon /> },
 ]
 
 /**
@@ -108,6 +109,7 @@ export function Hero() {
   const [cardOpen, setCardOpen] = useState(false)
   const [projectsOpen, setProjectsOpen] = useState(false)
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null)
+  const [contactOpen, setContactOpen] = useState(false)
   const activeProject = PROJECTS.find((p) => p.id === activeProjectId) ?? null
 
   return (
@@ -248,7 +250,7 @@ export function Hero() {
 
       {/* dock */}
       <div
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-4 rounded-full px-5 py-3"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-5 rounded-full px-6 py-3.5"
         style={{
           background: 'rgba(232,217,193,0.08)',
           backdropFilter: 'blur(20px)',
@@ -260,7 +262,9 @@ export function Hero() {
             <motion.button
               type="button"
               aria-label={item.label}
-              onClick={item.onClick}
+              onClick={() =>
+                item.id === 'contact' ? setContactOpen(true) : scrollToSection(item.id)
+              }
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.95 }}
               className="text-text"
@@ -352,6 +356,7 @@ export function Hero() {
         {activeProject && (
           <ProjectModal project={activeProject} onClose={() => setActiveProjectId(null)} />
         )}
+        {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
       </AnimatePresence>
     </section>
   )

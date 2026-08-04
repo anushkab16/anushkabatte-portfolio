@@ -60,7 +60,7 @@ export function About() {
   const isDesktop = useIsDesktop()
 
   return (
-    <section id="about" className="relative px-6 pb-[80px] pt-28">
+    <section id="about" className="relative px-6 pb-24 pt-24">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         {/* section label tag */}
         <div
@@ -76,18 +76,16 @@ export function About() {
         </div>
 
         <h2 className="font-display text-[clamp(30px,5vw,72px)] font-black uppercase leading-[1.05] text-text">
-          Tech that makes
+          Not your average
           <br />
-          people give a damn
+          CS student
         </h2>
 
         <p
           className="mt-6 max-w-[560px] text-[16px] font-light leading-relaxed"
           style={{ color: 'rgba(232,217,193,0.7)' }}
         >
-          Most people can build it. Few can explain it.
-          <br />
-          I&rsquo;m working on being both.
+          Researcher by training. Communicator by nature.
         </p>
 
         <a

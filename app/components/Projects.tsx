@@ -69,7 +69,7 @@ export function Projects() {
   const activeProject = PROJECTS.find((p) => p.id === activeId) ?? null
 
   return (
-    <section id="projects" className="relative px-6 pb-[120px] pt-28">
+    <section id="projects" className="relative px-6 pb-24 pt-24">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         <div
           className="mb-8 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-medium text-text"
@@ -84,18 +84,18 @@ export function Projects() {
         </div>
 
         <h2 className="font-display text-[clamp(30px,5vw,72px)] font-black uppercase leading-[1.05] text-text">
-          Projects that
+          Tech that makes
           <br />
-          tell stories
+          people give a damn
         </h2>
 
         <p
           className="mt-6 max-w-[560px] text-[16px] font-light leading-relaxed"
           style={{ color: 'rgba(232,217,193,0.7)' }}
         >
-          Built to solve real problems.
+          Most people can build it. Few can explain it.
           <br />
-          Not just to fill a portfolio.
+          I&rsquo;m working on both.
         </p>
       </div>
 
