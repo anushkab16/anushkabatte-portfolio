@@ -16,14 +16,14 @@ function PaperclipIcon() {
 
 const STATS = [
   {
+    number: '1',
+    label: 'Internship',
+    description: 'Data Science at Acuradyne, incubated at SINE IIT Bombay.',
+  },
+  {
     number: '2',
     label: 'Published Papers',
     description: 'Peer-reviewed ML research in Wiley and Cortexplore journals.',
-  },
-  {
-    number: '4+',
-    label: 'Projects Built',
-    description: 'From agentic AI systems to Android apps with computer vision.',
   },
   {
     number: '3',
@@ -31,9 +31,9 @@ const STATS = [
     description: 'ACM and Taqneeq Fest — leading teams, producing content, building things.',
   },
   {
-    number: '1',
-    label: 'Internship',
-    description: 'Data Science at Acuradyne, incubated at SINE IIT Bombay.',
+    number: '4+',
+    label: 'Projects Built',
+    description: 'From agentic AI systems to Android apps with computer vision.',
   },
 ]
 
@@ -47,7 +47,6 @@ export function About() {
           style={{
             background: 'rgba(42,24,32,0.94)',
             borderColor: 'rgba(232,217,193,0.16)',
-            transform: 'rotate(-2deg)',
           }}
         >
           <PaperclipIcon />

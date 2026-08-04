@@ -52,7 +52,7 @@ export function Footer() {
   const [contactOpen, setContactOpen] = useState(false)
 
   return (
-    <footer id="contact" className="relative overflow-hidden px-6 pb-32 pt-16">
+    <footer id="contact" className="relative overflow-hidden px-6 pb-24 pt-16">
       <div className="mx-auto max-w-6xl">
         <h2 className="font-display text-[clamp(40px,7vw,80px)] font-black uppercase leading-[1.02] text-text">
           Let&rsquo;s make

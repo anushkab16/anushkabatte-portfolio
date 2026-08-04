@@ -105,22 +105,22 @@ export function Hero() {
         />
       </div>
 
-      {/* availability card — pinned top-left, width fits content */}
-      <div className="absolute left-6 top-8 z-20 w-fit md:left-10">
+      {/* availability card — pinned top-left, matches the featured-project widget's width */}
+      <div className="absolute left-6 top-8 z-20 w-[280px] md:left-10">
         <motion.div
           layout
           onHoverStart={() => setCardOpen(true)}
           onHoverEnd={() => setCardOpen(false)}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="cursor-pointer overflow-hidden rounded-2xl border p-3"
+          className="cursor-pointer overflow-hidden rounded-2xl border p-4"
           style={{
             background: 'rgba(26,15,20,0.85)',
             borderColor: 'rgba(232,217,193,0.1)',
             backdropFilter: 'blur(12px)',
           }}
         >
-          <motion.div layout="position" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface text-[11px] text-text">
+          <motion.div layout="position" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface text-[11px] text-text">
               AB
             </div>
             <div>
@@ -128,7 +128,7 @@ export function Hero() {
                 <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-rose" />
                 Available for work
               </div>
-              <div className="text-[11px] font-semibold tracking-wide text-text">
+              <div className="mt-0.5 text-[11px] font-semibold tracking-wide text-text">
                 ANUSHKA BATTE
               </div>
             </div>
@@ -141,7 +141,7 @@ export function Hero() {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.2 }}
-                className="w-[280px]"
+                className="w-full"
               >
                 <div className="mt-3 text-[11px] font-medium text-rose">
                   Available for DevRel &amp; Marketing roles

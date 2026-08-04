@@ -76,7 +76,6 @@ export function Projects() {
           style={{
             background: 'rgba(42,24,32,0.94)',
             borderColor: 'rgba(232,217,193,0.16)',
-            transform: 'rotate(2deg)',
           }}
         >
           <PaperclipIcon />
