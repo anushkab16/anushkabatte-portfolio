@@ -1,42 +1,37 @@
-# Portfolio Blog Starter
+# Anushka Batte — personal portfolio
 
-This is a porfolio site template complete with a blog. Includes:
+Built with Next.js, Tailwind CSS, and deployed on Vercel.
 
-- MDX and Markdown support
-- Optimized for SEO (sitemap, robots, JSON-LD schema)
-- RSS Feed
-- Dynamic OG images
-- Syntax highlighting
-- Tailwind v4
-- Vercel Speed Insights / Web Analytics
-- Geist font
+Live at: https://anushkabatte-portfolio.vercel.app
 
-## Demo
+## What's on it
 
-https://portfolio-blog-starter.vercel.app
+- **Hero** — who I am, what I do, links to everything
+- **About** — an overview of everything I've done
+- **Projects** — four ML/AI projects that I'm super proud of
+- **Research** — two peer-reviewed publications
+- **Skills** — what I actually work with
+- **FAQs** — the stuff people actually want to know
+- **Contact** — reach me
 
-## How to Use
+## Built with
 
-You can choose from one of the following two methods to use this repository:
+- [Next.js](https://nextjs.org/) — App Router
+- [Tailwind CSS](https://tailwindcss.com/) — styling
+- [Cormorant Garant](https://fonts.google.com/specimen/Cormorant+Garant) + [Inter](https://fonts.google.com/specimen/Inter) — typography
+- [Vercel](https://vercel.com/) — deployment
 
-### One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
-
-### Clone and Deploy
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
+## Running locally
 
 ```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+git clone https://github.com/anushkab16/anushka-portfolio.git
+cd anushka-portfolio
+npm install --legacy-peer-deps
+npm run dev
 ```
 
-Then, run Next.js in development mode:
+Open `http://localhost:3000`
 
-```bash
-pnpm dev
-```
+## contact
 
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+anushkabatte.work@gmail.com  
