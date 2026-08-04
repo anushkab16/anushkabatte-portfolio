@@ -66,7 +66,6 @@ export const PROJECTS = [
     projectType: 'Agentic AI / LLM Engineering',
     tools: 'Python · LangChain · LangGraph · Groq',
     githubUrl: 'https://github.com/anushkab16/B076_CC_AgenticAI',
-    rotate: -3,
   },
   {
     id: 'fhe',
@@ -81,7 +80,6 @@ export const PROJECTS = [
     projectType: 'Privacy-Preserving ML / Security',
     tools: 'Python · TenSEAL · PyTorch · scikit-learn',
     githubUrl: 'https://github.com/anushkab16/ML-Against-Homomorphic-Encryption',
-    rotate: 2,
   },
   {
     id: 'wildfire',
@@ -96,7 +94,6 @@ export const PROJECTS = [
     projectType: 'Causal ML / Time-Series Forecasting',
     tools: 'Python · scikit-learn · D3.js · NASA FIRMS',
     githubUrl: 'https://github.com/anushkab16/wildfire-ctrd',
-    rotate: -2,
   },
   {
     id: 'tempus',
@@ -111,7 +108,6 @@ export const PROJECTS = [
     projectType: 'Android App / Computer Vision',
     tools: 'Java · YOLOv8 · Mistral AI · FastAPI',
     githubUrl: 'https://github.com/anushkab16/TempusProject',
-    rotate: 3,
   },
 ]
 

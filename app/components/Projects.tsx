@@ -106,8 +106,7 @@ export function Projects() {
               key={project.id}
               type="button"
               onClick={() => setActiveId(project.id)}
-              initial={{ rotate: project.rotate }}
-              whileHover={{ rotate: 0, scale: 1.04, y: -6 }}
+              whileHover={{ scale: 1.04, y: -6 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               className="relative z-0 w-[260px] shrink-0 cursor-pointer text-left hover:z-10"
             >

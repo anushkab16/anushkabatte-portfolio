@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 function PaperclipIcon() {
@@ -20,45 +19,25 @@ const STATS = [
     number: '2',
     label: 'Published Papers',
     description: 'Peer-reviewed ML research in Wiley and Cortexplore journals.',
-    rotate: -6,
   },
   {
     number: '4+',
     label: 'Projects Built',
     description: 'From agentic AI systems to Android apps with computer vision.',
-    rotate: 3,
   },
   {
     number: '3',
     label: 'Years in Tech Communities',
     description: 'ACM and Taqneeq Fest — leading teams, producing content, building things.',
-    rotate: -3,
   },
   {
     number: '1',
     label: 'Internship',
     description: 'Data Science at Acuradyne, incubated at SINE IIT Bombay.',
-    rotate: 4,
   },
 ]
 
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const query = window.matchMedia('(min-width: 1024px)')
-    setIsDesktop(query.matches)
-    const listener = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
-    query.addEventListener('change', listener)
-    return () => query.removeEventListener('change', listener)
-  }, [])
-
-  return isDesktop
-}
-
 export function About() {
-  const isDesktop = useIsDesktop()
-
   return (
     <section id="about" className="relative px-6 pb-24 pt-24">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
@@ -103,8 +82,7 @@ export function About() {
         {STATS.map((stat) => (
           <motion.div
             key={stat.label}
-            animate={{ rotate: isDesktop ? stat.rotate : 0 }}
-            whileHover={isDesktop ? { rotate: 0, scale: 1.04, y: -6 } : undefined}
+            whileHover={{ scale: 1.04, y: -6 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className="relative z-0 flex w-full max-w-[260px] shrink-0 flex-col justify-center overflow-hidden rounded-2xl border bg-surface p-5 hover:z-10 lg:w-[260px] lg:h-[244px]"
             style={{ borderColor: 'rgba(232,217,193,0.08)' }}

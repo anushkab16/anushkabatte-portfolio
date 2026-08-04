@@ -45,49 +45,6 @@ function MailIcon() {
   )
 }
 
-function BrainIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8 3 3 0 0 0 3.2 4.7A3 3 0 0 0 9 20a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Z" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8 3 3 0 0 1-3.2 4.7A3 3 0 0 1 15 20a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function ChatIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M4 5h16v11H8l-4 4z" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function PencilIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="m4 20 1-4L16 5l3 3L8 19z" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-const SKILL_TAGS = [
-  {
-    label: 'AI/ML Research',
-    icon: <BrainIcon />,
-    style: { top: '-16px', left: 'calc(50% + 90px)', rotate: -6 },
-  },
-  {
-    label: 'Tech Comm',
-    icon: <ChatIcon />,
-    style: { top: '48%', left: 'calc(50% - 420px)', rotate: 4 },
-  },
-  {
-    label: 'Content',
-    icon: <PencilIcon />,
-    style: { bottom: '-16px', left: 'calc(50% + 60px)', rotate: 3 },
-  },
-]
-
 const DOCK_ITEMS = [
   { id: 'about', label: 'About', icon: <NotesIcon /> },
   { id: 'projects', label: 'Projects', icon: <FolderIcon /> },
@@ -136,8 +93,8 @@ export function Hero() {
         />
       </div>
 
-      {/* portrait — flush against the bottom-left edge, popping out of frame */}
-      <div className="absolute bottom-0 left-0 z-10 h-[240px] w-[192px] sm:h-[320px] sm:w-[256px] md:h-[420px] md:w-[336px] lg:h-[520px] lg:w-[416px]">
+      {/* portrait — hidden on mobile, flush against the bottom-left edge from md+, popping out of frame */}
+      <div className="absolute bottom-0 left-0 z-10 hidden md:block md:h-[420px] md:w-[336px] lg:h-[520px] lg:w-[416px]">
         <Image
           src="/hero-image-v2.png"
           alt="Anushka Batte"
@@ -148,8 +105,8 @@ export function Hero() {
         />
       </div>
 
-      {/* availability card */}
-      <div className="absolute left-6 top-8 z-20 md:left-10">
+      {/* availability card — pinned top-left, width fits content */}
+      <div className="absolute left-6 top-8 z-20 w-fit md:left-10">
         <motion.div
           layout
           onHoverStart={() => setCardOpen(true)}
@@ -204,41 +161,22 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* headline + floating tags — pinned dead-center, independent of everything else */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center px-6">
-        <div className="relative mx-auto w-fit max-w-3xl">
-          <h1 className="font-display text-center text-[clamp(30px,5vw,72px)] font-black uppercase leading-[1.05] text-text">
-            Building at the intersection of AI and everything else
+      {/* headline — pinned dead-center, independent of everything else */}
+      <div className="absolute left-0 right-0 top-44 bottom-32 z-10 flex items-center justify-start px-6 md:inset-0 md:items-center md:justify-center">
+        <div className="relative w-fit max-w-3xl md:mx-auto">
+          <h1 className="font-display text-left text-[clamp(32px,8vw,56px)] font-black uppercase leading-[1.05] text-text md:text-center md:text-[clamp(30px,5vw,72px)]">
+            Building at the
+            <br />
+            intersection of AI
+            <br />
+            and everything else
           </h1>
-
-          {SKILL_TAGS.map((tag) => (
-            <motion.div
-              key={tag.label}
-              drag
-              dragMomentum={false}
-              dragElastic={0.15}
-              whileDrag={{ scale: 1.05 }}
-              initial={{ rotate: tag.style.rotate }}
-              className="absolute z-10 hidden cursor-grab items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 text-[12px] font-medium text-text active:cursor-grabbing md:flex"
-              style={{
-                top: tag.style.top,
-                left: tag.style.left,
-                bottom: 'bottom' in tag.style ? tag.style.bottom : undefined,
-                background: 'rgba(42,24,32,0.94)',
-                borderColor: 'rgba(232,217,193,0.16)',
-                backdropFilter: 'blur(6px)',
-              }}
-            >
-              {tag.icon}
-              {tag.label}
-            </motion.div>
-          ))}
         </div>
       </div>
 
-      {/* tagline */}
+      {/* tagline — desktop only */}
       <p
-        className="absolute right-6 top-8 z-10 text-right text-[18px] font-bold leading-relaxed md:right-10"
+        className="absolute right-6 top-8 z-10 hidden text-right text-[18px] font-bold leading-relaxed md:right-10 md:block"
         style={{ color: 'rgba(232,217,193,0.7)' }}
       >
         CS student.
@@ -248,9 +186,9 @@ export function Hero() {
         Content creator.
       </p>
 
-      {/* dock */}
+      {/* dock — fixed to the viewport bottom at all breakpoints, stays put on scroll */}
       <div
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-5 rounded-full px-6 py-3.5"
+        className="fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-5 rounded-full px-6 py-3.5 md:bottom-8"
         style={{
           background: 'rgba(232,217,193,0.08)',
           backdropFilter: 'blur(20px)',

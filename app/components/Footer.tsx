@@ -4,10 +4,6 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ContactModal } from './ContactModal'
 
-function scrollToSection(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
-
 function InstagramIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -52,19 +48,11 @@ const SOCIALS = [
   { label: 'Medium', icon: <MediumIcon />, href: 'https://medium.com/@anushkabatte.work' },
 ]
 
-const NAV_LINKS = [
-  { label: 'About', id: 'about' },
-  { label: 'Skills', id: 'skills' },
-  { label: 'Projects', id: 'projects' },
-  { label: 'Research', id: 'research' },
-  { label: 'FAQs', id: 'faq' },
-]
-
 export function Footer() {
   const [contactOpen, setContactOpen] = useState(false)
 
   return (
-    <footer id="contact" className="relative overflow-hidden px-6 pb-8 pt-16">
+    <footer id="contact" className="relative overflow-hidden px-6 pb-32 pt-16">
       <div className="mx-auto max-w-6xl">
         <h2 className="font-display text-[clamp(40px,7vw,80px)] font-black uppercase leading-[1.02] text-text">
           Let&rsquo;s make
@@ -100,27 +88,6 @@ export function Footer() {
         >
           Let&rsquo;s talk &rarr;
         </motion.button>
-      </div>
-
-      <div
-        className="mx-auto mt-16 flex max-w-6xl flex-col items-center gap-3 border-t pt-6 sm:flex-row sm:justify-between"
-        style={{ borderColor: 'rgba(232,217,193,0.08)' }}
-      >
-        <span className="text-[12px] font-light text-muted">anushka batte</span>
-        <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] tracking-[0.08em] text-muted">
-          {NAV_LINKS.map((link, i) => (
-            <span key={link.id} className="flex items-center gap-x-4">
-              <button
-                type="button"
-                onClick={() => scrollToSection(link.id)}
-                className="uppercase transition-colors hover:text-text"
-              >
-                {link.label}
-              </button>
-              {i < NAV_LINKS.length - 1 && <span aria-hidden>&middot;</span>}
-            </span>
-          ))}
-        </nav>
       </div>
 
       <AnimatePresence>
